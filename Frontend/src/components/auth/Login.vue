@@ -9,7 +9,7 @@
                     <div class="form-group">
                         <input type="password" v-model="password" class="form-control" placeholder="Password">
                     </div>
-                    <button class="btn btn-success pull-right">Login</button>
+                    <button class="btn btn-success pull-right" @click="login">Login</button>
                 </div>
             </div>
         </div>
@@ -24,6 +24,24 @@
             return {
                 email: '',
                 password: ''
+            }
+        },
+
+        methods: {
+            login () {
+                var data = {
+                    client_id: 2,
+                    client_secret: 'EPzHAWEOGdAvdrE4biDvYgQ4csI3EKAbiK6kfJHU',
+                    grant_type: 'password',
+                    username: this.email,
+                    password: this.password
+                }
+
+
+                this.$http.post('http://localhost:8000/oauth/token', data)
+                    .then( res => {
+                        console.log(res.body);
+                    })
             }
         }
     }
