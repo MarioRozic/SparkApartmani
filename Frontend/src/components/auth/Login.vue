@@ -40,7 +40,10 @@
 
                 this.$http.post('http://localhost:8000/oauth/token', data)
                     .then( res => {
-                        console.log(res.body);
+                        console.log(res.body)
+                        this.$auth.setToken(res.body.access_token, res.body.expires_in + Date.now())
+                        
+                        this.$router.push("/profile")
                     })
             }
         }

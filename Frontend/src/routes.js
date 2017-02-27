@@ -8,16 +8,29 @@ const router = new VueRouter({
     routes: [
         {
             path: "/login",
-            component: require('./components/auth/Login.vue')
+            component: require('./components/auth/Login.vue'),
+            meta: {
+                forVisitors: true
+            }
         },
         {
             path: "/register",
-            component: require('./components/auth/Register.vue')
+            component: require('./components/auth/Register.vue'),
+            meta: {
+                forVisitors: true
+            }
+        },
+        {
+            path: "/profile",
+            component: require('./components/Profile.vue'),
+            meta: {
+                forAuth: true
+            }
         }
     ],
 
     linkActiveClass: 'active',
-    mode: 'history'
+    //mode: 'history'
 })
 
 export default router
