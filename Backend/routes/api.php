@@ -19,9 +19,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get('/','ApartmanController@getAll');
+Route::post('/register','ApartmanController@register');
 
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::resource('apartmans', 'ApartmanController@getAll');
+    Route::get('apartmans', 'ApartmanController@getAll');
 });
 
