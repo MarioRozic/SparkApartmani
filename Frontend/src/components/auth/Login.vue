@@ -31,14 +31,14 @@
             login () {
                 var data = {
                     client_id: 2,
-                    client_secret: 'EPzHAWEOGdAvdrE4biDvYgQ4csI3EKAbiK6kfJHU',
+                    client_secret: 'mvMDMc7XiFcQXZh1Umcf6qD8Mt1DvlmU6nYJ472Y',
                     grant_type: 'password',
                     username: this.email,
                     password: this.password
                 }
 
 
-                this.$http.post('http://localhost:8000/oauth/token', data)
+                this.$http.post('oauth/token', data)
                     .then( res => {
                         console.log(res.body)
                         this.$auth.setToken(res.body.access_token, res.body.expires_in + Date.now())

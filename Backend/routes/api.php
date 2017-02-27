@@ -18,6 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/test', function() {
-    return 'Hello';
+Route::get('/','ApartmanController@getAll');
+
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::resource('apartmans', 'ApartmanController@getAll');
 });
+

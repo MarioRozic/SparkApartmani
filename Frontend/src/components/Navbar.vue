@@ -7,7 +7,7 @@
 
           </ul>
         </nav>
-        <h3 class="text-muted">Project name</h3>
+        <h3 class="text-muted"><router-link tag="h3" to="/"><a>Apartmani</a></router-link></h3>
       </div>
 </template>
 

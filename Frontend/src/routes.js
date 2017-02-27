@@ -26,6 +26,13 @@ const router = new VueRouter({
             meta: {
                 forAuth: true
             }
+        },
+        {
+            path: "/",
+            component: require('./components/Home.vue'),
+            meta: {
+                forVisitors: false
+            }
         }
     ],
 
