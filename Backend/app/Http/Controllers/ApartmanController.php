@@ -12,23 +12,8 @@ class ApartmanController extends Controller
         return Apartman::all();
     }
 
-    public function register(Request $request) {
-        $this->validate($request, [
-            'email' => 'email|required|unique',
-            'password' => 'required|min:4'
-        ]);
-
-        $user = $request->all();
-        $user['password'] = bcrypt($request['password']);
-        $user['remember_token'] = str_random(10);
-
-        try {
-            User::create($user);
-
-        } catch (Exception $e) {
-            return ['error' => 'User already exists.'];
-        }
-
-        return $request->all();
+    public function getById(Request $request, $id) {
+        return Apartman::find($id);
     }
+
 }

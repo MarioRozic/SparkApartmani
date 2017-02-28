@@ -33,6 +33,13 @@ const router = new VueRouter({
             meta: {
                 forVisitors: false
             }
+        },
+        {
+            path: "/details/:id",
+            component: require('./components/apartman/ApartmanDetails.vue'),
+            meta: {
+                forVisitors: false
+            }
         }
     ],
 

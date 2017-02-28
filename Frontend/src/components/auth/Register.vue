@@ -34,7 +34,8 @@
                 user: {
                     name: '',
                     email: '',
-                    password: ''
+                    password: '',
+                    remember_token: ''
                 },
                 formErrors: ''
             }
@@ -46,7 +47,7 @@
                         console.log(res);
                     }, res => {
                         var errors = res.body
-                        this.formErrors = errors
+        
                         console.log(res);
                     })
             }

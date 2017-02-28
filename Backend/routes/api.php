@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get('/','ApartmanController@getAll');
-Route::post('/register','ApartmanController@register');
+Route::get('/details/{id}', 'ApartmanController@getById');
 
 
 Route::group(['middleware' => 'auth:api'], function () {
