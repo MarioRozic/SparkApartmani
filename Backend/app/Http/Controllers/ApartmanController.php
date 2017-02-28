@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Apartman;
 use App\User;
+use App\Order;
 use Illuminate\Http\Request;
 
 class ApartmanController extends Controller
@@ -15,5 +16,7 @@ class ApartmanController extends Controller
     public function getById(Request $request, $id) {
         return Apartman::find($id);
     }
+
+
 
 }

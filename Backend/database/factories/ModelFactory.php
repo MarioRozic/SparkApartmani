@@ -28,6 +28,6 @@ $factory->define(App\Apartman::class, function (Faker\Generator $faker) {
         'name' => $faker->company . " hotel",
         'address' => $faker->address,
         'city' => $faker->city,
-        'description' => $faker->text(150),
+        'description' => $faker->text(550),
     ];
 });

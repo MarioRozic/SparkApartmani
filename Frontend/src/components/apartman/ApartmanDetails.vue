@@ -50,7 +50,7 @@
     {{ apartman.description }}
   </div>
 </div>
-            <p><a class="btn btn-primary btn-lg" href="#" role="button">Reserve NOW!</a></p>
+            <p><a class="btn btn-primary btn-lg" role="button" @click="reserve">Reserve NOW!</a></p>
         </div>
     </div>
 </template>
@@ -70,7 +70,24 @@
                         this.apartman = res.body
                         console.log(res);
                     })
-        }      
+        },
+        methods: {
+            reserve () {
+                let data = {
+                    user_id: this.$auth.getAuthenticatedUser().id,
+                    apartman_id: this.apartman.id,
+                    name: 'test',
+                    hotel_name: this.apartman.name
+                }
+
+                console.log(data);
+
+                this.$http.post('api/reserve', data)
+                    .then(res => {
+                        console.log(res)
+                    })
+            }
+        }
 
     }
 

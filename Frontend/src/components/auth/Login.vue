@@ -33,7 +33,7 @@
             login () {
                 var data = {
                     client_id: 2,
-                    client_secret: 'Ne90Y7yU2ZCPO8Z5unAbOpvq0W61J48HKFOoFiEv',
+                    client_secret: 'M6HwGlHnaq37T8gsC749jGkfh2tvnup4V7VV3SQJ',
                     grant_type: 'password',
                     username: this.email,
                     password: this.password
@@ -44,8 +44,12 @@
                     .then( res => {
                         console.log(res.body)
                         this.$auth.setToken(res.body.access_token, res.body.expires_in + Date.now())
-                        
-                        this.$router.push("/profile")
+                            this.$http.get('api/user')
+                                .then(res => {
+                                    this.$auth.setAuthenticatedUser(res.body)
+                                    console.log(this.$auth.getAuthenticatedUser())
+                                    this.$router.push("/profile")
+                                })
                     }, res => {
                         this.error = res.body.message
                         console.log(res)
