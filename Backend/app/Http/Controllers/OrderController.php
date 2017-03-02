@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use Faker\Provider\cs_CZ\DateTime;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 
@@ -39,5 +40,21 @@ class OrderController extends Controller
 
     public function getOrdersByUserId($id) {
         return Order::where('user_id', $id)->get();
+    }
+
+    public function cancelReservation($id) {
+        /*
+        $date = new DateTime('today');
+        $date->add(new DateInterval('P2D'));
+
+
+         if(Order::where('date', '>=', $date)){
+             return 'USO u IF';
+         }
+        */
+
+        Order::destroy($id);
+        return 'Nije uso';
+
     }
 }

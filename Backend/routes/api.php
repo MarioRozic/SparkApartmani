@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('apartmans', 'ApartmanController@getAll');
     Route::post('reserve', 'OrderController@reserve');
     Route::get('reservation/{id}', 'OrderController@getOrdersByUserId');
+    Route::delete('cancel/{id}', 'OrderController@cancelReservation');
 
 });
 

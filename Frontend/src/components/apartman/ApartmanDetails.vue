@@ -83,7 +83,6 @@
 </template>
 
 <script>
-    import swal from 'sweetalert'
     export default {
         data () {
             return {

@@ -12,6 +12,7 @@
                     <th>Reservation ID</th>
                     <th>Hotel Name</th>
                     <th>Name of Reservation</th>
+                    <td>Options</td>
                 </tr>
                 </thead>
                 <tbody>
@@ -19,6 +20,8 @@
                     <td>{{ reservation.id }}</td>
                     <td>{{ reservation.hotel_name }}</td>
                     <td>{{ reservation.name }}</td>
+                    <td><button class="btn btn-danger" @click="cancelReservation(reservation.id)">Delete</button></td>
+                    <td><button class="btn btn-success" @click="editReservation">Delete</button></td>
                 </tr>
              
                 </tbody>
@@ -28,6 +31,7 @@
 </template>
 
 <script>
+    import swal from 'sweetalert'
 
     export default {
         data () {
@@ -42,6 +46,36 @@
                     this.reservations = res.body
                     console.log(res)
                 })
+        },
+
+        methods: {
+            cancelReservation (id) {
+                swal({
+                    title: "Are you sure?",
+                    text: "Your will not be able to recover this reservation!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Yes, delete it!",
+                    closeOnConfirm: false
+                },
+                function(){
+
+                    this.$http.delete('api/cancel/' + id)
+                        .then(res => {
+                            let index = this.reservations.indexOf(id)
+
+                            this.reservations.splice(index, 1)
+
+                            swal("Deleted!", "Your reservation has been deleted.", "success");
+                            console.log(res)
+                        })
+                }.bind(this)
+                );
+            },
+            editReservation () {
+
+            }
         }
     }
 
