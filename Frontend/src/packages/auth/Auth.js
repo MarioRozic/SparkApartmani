@@ -9,8 +9,8 @@ export default function(Vue) {
         getToken () {
             var token = localStorage.getItem('token')
             var expiration = localStorage.getItem('expiration')
-            console.log(`token: ${token}`)
-            console.log(`expiration: ${expiration}`)
+            // console.log(`token: ${token}`)
+            // console.log(`expiration: ${expiration}`)
             if( ! token || ! expiration)
                 return null
 
@@ -29,7 +29,6 @@ export default function(Vue) {
         },
 
         isAuthenticated () {
-            console.log('test')
 
             if(this.getToken()){
                 return true

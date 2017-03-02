@@ -14,14 +14,14 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
     <div class="item active">
-      <img src="http://discoverindonesia.co.id/wp-content/uploads/2016/03/Day-2-Stay-at-a-Ritz-Carlton-Reserve--1080x630.jpg" alt="Flower">
+      <img src="https://miamitouristguide.com/wp-content/uploads/meatmarket-1080x630.jpg" alt="Flower">
     </div>
 
     <div class="item">
       <img src="https://texasstation.sclv.com/~/media/Images/Page-Background-Images/Texas/TS_Hotel_King_lowrez.jpg?h=630&la=en&w=1080" alt="Flower">
     </div>
     <div class="item">
-      <img src="http://discoverindonesia.co.id/wp-content/uploads/2016/03/Day-2-Stay-at-a-Ritz-Carlton-Reserve--1080x630.jpg" alt="Flower">
+      <img src="https://miamitouristguide.com/wp-content/uploads/meatmarket-1080x630.jpg" alt="Flower">
     </div>
 
     <div class="item">
@@ -50,17 +50,48 @@
     {{ apartman.description }}
   </div>
 </div>
-            <p><a class="btn btn-primary btn-lg" role="button" @click="reserve">Reserve NOW!</a></p>
+<div class="alert alert-danger" role="alert" v-if="error">{{ error }}</div>
+                <div class='input-group name' id='name'>
+                    <input type='text' class="form-control" v-model="name"
+                        placeholder="Name"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-font"></span>
+                    </span>
+                </div><br>
+
+            <div class="form-group">
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='date' class="form-control" v-model="date"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div><br>
+
+                <div class='input-group days' id='days'>
+                    <input type='number' class="form-control" v-model="days"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-hourglass"></span>
+                    </span>
+                </div>
+            </div>
+            <p><a class="btn btn-primary btn-lg" 
+                    role="button" 
+                    :class="{disabled: !filled}"
+                    @click="reserve">Reserve NOW!</a></p>
         </div>
     </div>
 </template>
 
 <script>
-
+    import swal from 'sweetalert'
     export default {
         data () {
             return {
-                apartman: []
+                apartman: [],
+                date: '',
+                name: '',
+                days: 1,
+                error: ''
             }
         },
         created () {
@@ -68,24 +99,37 @@
                 this.$http.get(`api/details/${this.$route.params.id}`)
                     .then(res => {
                         this.apartman = res.body
-                        console.log(res);
+                        // console.log(res);
                     })
+
+                    
         },
         methods: {
             reserve () {
                 let data = {
                     user_id: this.$auth.getAuthenticatedUser().id,
                     apartman_id: this.apartman.id,
-                    name: 'test',
-                    hotel_name: this.apartman.name
+                    name: this.name,
+                    hotel_name: this.apartman.name,
+                    date: this.date,
+                    days: this.days
                 }
 
-                console.log(data);
+                // console.log(data);
 
                 this.$http.post('api/reserve', data)
                     .then(res => {
                         console.log(res)
+                        this.$router.push('/')
+                    }, res => {
+                        console.log(res.body.error);
+                        this.error = res.body.error
                     })
+            }
+        },
+        computed: {
+            filled () {
+                return this.name && this.date && this.days
             }
         }
 

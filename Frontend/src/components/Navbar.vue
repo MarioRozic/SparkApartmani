@@ -2,12 +2,12 @@
      <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills pull-right">
-            <router-link tag="li" to="/login" v-if="!test"><a>Login</a></router-link>
-            <router-link tag="li" to="/register" v-if="!test"><a>Register</a></router-link>
+            <router-link tag="li" to="/login" v-if="!isAuth"><a>Login</a></router-link>
+            <router-link tag="li" to="/register" v-if="!isAuth"><a>Register</a></router-link>
 
-            <router-link tag="li" to="/profile" v-if="test"><a>User profile</a></router-link>
+            <router-link tag="li" to="/profile" v-if="isAuth"><a>User profile</a></router-link>
             <!--<router-link tag="li" v-if="test" @click="logout"><a>Logout</a></router-link>-->
-            <li @click="logout"  v-if="test"><a>Logout</a></li>
+            <li @click="logout"  v-if="isAuth"><a>Logout</a></li>
 
           </ul>
         </nav>
@@ -25,14 +25,8 @@ export default {
       }
     },
     created () {
-      this.isAuth = this.test
+      this.isAuth = this.$auth.isAuthenticated();
       this.setAuthenticatedUser()
-    },
-
-    computed: {
-      test () {
-        return this.$auth.isAuthenticated()
-      }
     },
 
     methods: {
@@ -40,7 +34,7 @@ export default {
         this.$http.get('api/user')
           .then(res => {
             this.$auth.setAuthenticatedUser(res.body)
-            console.log(this.$auth.getAuthenticatedUser())
+            // console.log(this.$auth.getAuthenticatedUser())
           })
       },
       logout() {

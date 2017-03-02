@@ -19,6 +19,8 @@ class CreateOrdersTable extends Migration
             $table->integer('apartman_id');
             $table->string('name');
             $table->string('hotel_name');
+            $table->date('date');
+            $table->integer('days');
             $table->timestamps();
         });
     }
