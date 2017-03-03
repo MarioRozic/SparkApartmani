@@ -53,8 +53,13 @@
             return {
                 reservations: [],
                 showModal: false,
-                id: ''
+                currentId: ''
            }
+        },
+        computed: {
+            id () {
+                return this.currentId
+            }
         },
 
         created() {
@@ -90,24 +95,16 @@
                 }.bind(this)
                 );
             },
-            editReservation () {
-                this.$http.get('oauth/tokens')
-                    .then(res => {
-                        console.log(res)
-                    })
-            },
 
             editDone(id, data) {
-                //this.reservations[id].name = data.name 
-                console.log(this.reservations[0].name)
-
+                console.log(data)
+                this.reservations[id-1].name = data.name 
                 this.showModal = false
             },
 
             setId(id) {
-                this.id = id
+                this.currentId = id
                 this.showModal = true
-                console.log(id)
             }
 
         },
