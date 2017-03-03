@@ -71,6 +71,7 @@ class OrderController extends Controller
 
         $reservation->save();
 
-        return 'Done';
+        return response()->json(['success' => 'Reservation successefully edited!'],200);
+
     }
 }

@@ -20,21 +20,27 @@
                     <td>{{ reservation.id }}</td>
                     <td>{{ reservation.hotel_name }}</td>
                     <td>{{ reservation.name }}</td>
-                    <td><button class="btn btn-danger" @click="cancelReservation(reservation.id)">Delete</button></td>
-                    <td><button class="btn btn-success" @click="showModal = true">Edit</button></td>
-    <modal v-if="showModal" @editDone="showModal = false" :id="reservation.id">
-        <div class="modal-header">
-            <h3>
-                Hello Vue.JS
-            </h3>
-        </div>
-    </modal>
+                    <td><button class="btn btn-danger" 
+                        @click="cancelReservation(reservation.id)">Delete</button></td>
+                    <td><button class="btn btn-success" 
+                        @click="setId(reservation.id)"
+                        >Edit</button></td>
                 </tr>
              
                 </tbody>
             </table>
         </div>
 
+    <modal v-if="showModal" 
+        @editDone="editDone" 
+        :id="this.id"
+        @cancelEdit="showModal = false">
+        <div class="modal-header">
+            <h3>
+                Hello Vue.JS
+            </h3>
+        </div>
+    </modal>
     </div>
 </template>
 
@@ -46,7 +52,8 @@
         data () {
             return {
                 reservations: [],
-                showModal: false
+                showModal: false,
+                id: ''
            }
         },
 
@@ -88,7 +95,21 @@
                     .then(res => {
                         console.log(res)
                     })
+            },
+
+            editDone(id, data) {
+                //this.reservations[id].name = data.name 
+                console.log(this.reservations[0].name)
+
+                this.showModal = false
+            },
+
+            setId(id) {
+                this.id = id
+                this.showModal = true
+                console.log(id)
             }
+
         },
         components: {
             modal: ReservationModal

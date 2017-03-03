@@ -33,7 +33,9 @@
             </div>
         </div>
         <div class="modal-footer uk-clearfix">
-            <button class="btn btn-success" @click="editReservation">Ok, I hear!</button>
+            <button class="btn btn-danger" @click="cancelEdit">Cancel</button>
+          
+            <button class="btn btn-success" @click="editReservation">Edit</button>
         </div>
       </div>
     </div>
@@ -63,14 +65,18 @@
         
                 this.$http.put('api/reservation/details/' + this.id, data)
                   .then(res => {
-                    this.$emit('editDone')
+                    this.$emit('editDone',this.id,data)
 
                     console.log(res);
                   })
 
+          },
+          cancelEdit () {
+                    this.$emit('cancelEdit')
+            
           }
         },
-        mounted() {
+        created() {
             this.$http.get('api/reservation/details/' + this.id)
               .then(res => {
                 console.log(res.body);
