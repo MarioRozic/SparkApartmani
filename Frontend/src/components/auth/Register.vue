@@ -2,10 +2,9 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
                 <div class="alert alert-danger" role="alert" 
-                    v-if="formErrors"
-                    v-for="error in formErrors">
+                    v-if="error">
                         {{ error }}
-                    </div>
+                </div>
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="form-group">
@@ -34,21 +33,19 @@
                 user: {
                     name: '',
                     email: '',
-                    password: '',
-                    remember_token: ''
+                    password: ''
                 },
-                formErrors: ''
+                error: ''
             }
         },
         methods: {
             register () {
+                
                 this.$http.post('api/register', this.user)
                     .then(res => {
-                        console.log(res);
+                        this.$router.push('/login')
                     }, res => {
-                        var errors = res.body
-        
-                        console.log(res);
+                        this.error = res.body.error
                     })
             }
         }

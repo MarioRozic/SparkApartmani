@@ -51,13 +51,13 @@
   </div>
 </div>
 <div class="alert alert-danger" role="alert" v-if="error">{{ error }}</div>
-                <div class='input-group name' id='name'>
-                    <input type='text' class="form-control" v-model="name"
-                        placeholder="Name"/>
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-font"></span>
-                    </span>
-                </div><br>
+            <div class='input-group name' id='name'>
+                <input type='text' class="form-control" v-model="name"
+                    placeholder="Name"/>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-font"></span>
+                </span>
+            </div><br>
 
             <div class="form-group">
                 <div class='input-group date' id='datetimepicker1'>

@@ -57,4 +57,20 @@ class OrderController extends Controller
         return 'Nije uso';
 
     }
+
+    public function gerOrderById($id) {
+        return Order::find($id);
+    }
+
+    public function editOrder(Request $request, $id){
+        $reservation = Order::find($id);
+
+        $reservation->name = $request['name'];
+        $reservation->date = $request['date'];
+        $reservation->days = $request['days'];
+
+        $reservation->save();
+
+        return 'Done';
+    }
 }

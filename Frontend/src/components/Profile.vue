@@ -21,22 +21,32 @@
                     <td>{{ reservation.hotel_name }}</td>
                     <td>{{ reservation.name }}</td>
                     <td><button class="btn btn-danger" @click="cancelReservation(reservation.id)">Delete</button></td>
-                    <td><button class="btn btn-success" @click="editReservation">Delete</button></td>
+                    <td><button class="btn btn-success" @click="showModal = true">Edit</button></td>
+    <modal v-if="showModal" @editDone="showModal = false" :id="reservation.id">
+        <div class="modal-header">
+            <h3>
+                Hello Vue.JS
+            </h3>
+        </div>
+    </modal>
                 </tr>
              
                 </tbody>
             </table>
         </div>
+
     </div>
 </template>
 
 <script>
     import swal from 'sweetalert'
+    import ReservationModal from './apartman/ReservationModal.vue'
 
     export default {
         data () {
             return {
-                reservations: []
+                reservations: [],
+                showModal: false
            }
         },
 
@@ -74,8 +84,14 @@
                 );
             },
             editReservation () {
-
+                this.$http.get('oauth/tokens')
+                    .then(res => {
+                        console.log(res)
+                    })
             }
+        },
+        components: {
+            modal: ReservationModal
         }
     }
 

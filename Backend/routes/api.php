@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/','ApartmanController@getAll');
 Route::get('/details/{id}', 'ApartmanController@getById');
+Route::post('/register', 'UserController@register');
 
 
 Route::group(['middleware' => 'auth:api'], function () {
@@ -27,6 +28,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('reserve', 'OrderController@reserve');
     Route::get('reservation/{id}', 'OrderController@getOrdersByUserId');
     Route::delete('cancel/{id}', 'OrderController@cancelReservation');
+    Route::get('reservation/details/{id}', 'OrderController@gerOrderById');
+    Route::put('reservation/details/{id}', 'OrderController@editOrder');
 
 });
 
