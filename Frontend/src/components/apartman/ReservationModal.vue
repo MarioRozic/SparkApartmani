@@ -43,6 +43,7 @@
 </template>
 
 <script>
+    import swal from 'sweetalert'
 
     export default {
         data () {
@@ -68,6 +69,10 @@
                     this.$emit('editDone',this.id,data)
 
                     console.log(res);
+                  }, res => {
+                    swal("Cancelled", res.body.error , "error");
+                    this.$emit('cancelEdit')
+
                   })
 
           },

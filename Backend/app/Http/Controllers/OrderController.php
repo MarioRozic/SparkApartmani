@@ -43,18 +43,26 @@ class OrderController extends Controller
     }
 
     public function cancelReservation($id) {
-        /*
-        $date = new DateTime('today');
-        $date->add(new DateInterval('P2D'));
 
 
-         if(Order::where('date', '>=', $date)){
-             return 'USO u IF';
-         }
-        */
+        $today = new \DateTime();
+        $today->add(new \DateInterval('P2D'));
 
-        Order::destroy($id);
-        return 'Nije uso';
+        $expireDate = Order::find($id);
+
+        $expireDate1= new \DateTime($expireDate['date']);
+
+        if($expireDate1 > $today) {
+            Order::destroy($id);
+
+            return response()->json(['success' => 'Reservation deleted!'],200);
+
+        }
+
+        return response()->json(['error' => 'You must cancel reservation at least 2 days before!'],404);
+
+
+
 
     }
 
@@ -65,13 +73,26 @@ class OrderController extends Controller
     public function editOrder(Request $request, $id){
         $reservation = Order::find($id);
 
-        $reservation->name = $request['name'];
-        $reservation->date = $request['date'];
-        $reservation->days = $request['days'];
+        $today = new \DateTime();
+        $today->add(new \DateInterval('P2D'));
 
-        $reservation->save();
+        $expireDate= new \DateTime(request('date'));
 
-        return response()->json(['success' => 'Reservation successefully edited!'],200);
+        if($expireDate > $today){
+            $reservation->name = $request['name'];
+            $reservation->date = $request['date'];
+            $reservation->days = $request['days'];
+
+            $reservation->save();
+
+            return response()->json(['success' => 'Reservation successefully edited!'],200);
+        }
+
+        return response()->json(['error' => 'Input data incorrect'],404);
+
+
+
+
 
     }
 }

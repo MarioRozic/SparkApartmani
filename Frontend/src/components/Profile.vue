@@ -91,6 +91,8 @@
 
                             swal("Deleted!", "Your reservation has been deleted.", "success");
                             console.log(res)
+                        }, res => {
+                            swal("Cancelled", res.body.error , "error");
                         })
                 }.bind(this)
                 );
