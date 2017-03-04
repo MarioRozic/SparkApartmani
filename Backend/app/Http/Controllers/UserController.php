@@ -18,15 +18,15 @@ class UserController extends Controller
         //User::create($request);
         $user = new User([
             'name' => $request['name'],
-            'password' => bcrypt($request['email']),
+            'password' => bcrypt($request['password']),
             'email' => $request['email'],
             'remember_token' => str_random(10)
         ]);
         $user->save();
 
-        //$user->createToken(null)->accessToken;
+        //$token = $user->createToken(null)->accessToken;
 
-        return response()->json(['success' => 'User successefully added!'],200);
+        return response()->json(['success' => 'Successfully registered!'],200);
 
 
 

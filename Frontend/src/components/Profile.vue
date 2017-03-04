@@ -63,6 +63,7 @@
         },
 
         created() {
+            console.log(this.$auth.getAuthenticatedUser().id)
             this.$http.get('api/reservation/' + this.$auth.getAuthenticatedUser().id)
                 .then(res => {
                     this.reservations = res.body

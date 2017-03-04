@@ -29,6 +29,11 @@ export default {
       this.setAuthenticatedUser()
     },
 
+    beforeUpdate(){
+      this.isAuth = this.$auth.isAuthenticated();
+
+    },
+
     methods: {
       setAuthenticatedUser () {
         this.$http.get('api/user')

@@ -43,9 +43,11 @@
                 
                 this.$http.post('api/register', this.user)
                     .then(res => {
+                        console.log(res)
                         this.$router.push('/login')
                     }, res => {
                         this.error = res.body.error
+                        console.log(res)
                     })
             }
         }
