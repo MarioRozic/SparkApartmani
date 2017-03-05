@@ -33,8 +33,8 @@ class OrderController extends Controller
         $order->save();
 
 
+        return response()->json(['success' => 'Successfully reserved!'],200);
 
-        return 'done';
 
     }
 

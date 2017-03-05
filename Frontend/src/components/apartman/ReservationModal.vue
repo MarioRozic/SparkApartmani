@@ -66,7 +66,7 @@
         
                 this.$http.put('api/reservation/details/' + this.id, data)
                   .then(res => {
-                    this.$emit('editDone',this.id,data)
+                    this.$emit('editDone', this.id, data)
 
                     console.log(res);
                   }, res => {

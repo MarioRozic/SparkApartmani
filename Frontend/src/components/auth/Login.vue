@@ -19,7 +19,7 @@
 
 
 <script>
-
+    import {ClientID, ClientSecret} from '../../.env.js'
     export default {
         data () {
             return {
@@ -32,8 +32,8 @@
         methods: {
             login () {
                 var data = {
-                    client_id: 2,
-                    client_secret: 'k4ymCCytysK3wYFmu5oGmlMI2pqHlROfZbk4lyLm',
+                    client_id: ClientID,
+                    client_secret: ClientSecret,
                     grant_type: 'password',
                     username: this.email,
                     password: this.password

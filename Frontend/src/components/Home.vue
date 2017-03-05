@@ -1,6 +1,5 @@
 <template>
     <div class="row">
-        <h1>Home</h1>
         <my-apartmans></my-apartmans>
     </div>
 </template>

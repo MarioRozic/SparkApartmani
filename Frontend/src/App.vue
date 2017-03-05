@@ -1,6 +1,6 @@
 <template>
   <div class="container" id="app">
-    <navbar></navbar>
+    <navbar :auth="isAuth"></navbar>
     <router-view></router-view>
   </div>
 </template>
@@ -11,7 +11,28 @@ import Navbar from './components/Navbar.vue'
 export default {
     components: {
         'navbar': Navbar,
-    }    
+    },
+    data () {
+      return {
+        isAuth: null
+      }
+    },
+    created () {
+      this.setAuthenticatedUser()
+
+    },
+    beforeUpdate () {
+      this.isAuth = this.$auth.isAuthenticated()
+    },
+    methods: {
+      setAuthenticatedUser () {
+        this.$http.get('api/user')
+          .then(res => {
+            this.$auth.setAuthenticatedUser(res.body)
+            // console.log(this.$auth.getAuthenticatedUser())
+          })
+      }
+    }
 }
 </script>
 

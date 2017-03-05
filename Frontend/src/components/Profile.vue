@@ -16,14 +16,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="reservation in reservations">
+                <tr v-for="(reservation, index) in reservations">
                     <td>{{ reservation.id }}</td>
                     <td>{{ reservation.hotel_name }}</td>
                     <td>{{ reservation.name }}</td>
                     <td><button class="btn btn-danger" 
                         @click="cancelReservation(reservation.id)">Delete</button></td>
                     <td><button class="btn btn-success" 
-                        @click="setId(reservation.id)"
+                        @click="setId(index)"
                         >Edit</button></td>
                 </tr>
              
@@ -31,15 +31,20 @@
             </table>
         </div>
 
+        <div class="well" v-if="showToken">
+            <div class="panel panel-default">
+                <div class="panel-heading">Token</div>
+                <div class="panel-body" id="token">
+                    {{ token }}
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-warning" @click="showToken = !showToken">Get Token</button>
+
     <modal v-if="showModal" 
         @editDone="editDone" 
         :id="this.id"
         @cancelEdit="showModal = false">
-        <div class="modal-header">
-            <h3>
-                Hello Vue.JS
-            </h3>
-        </div>
     </modal>
     </div>
 </template>
@@ -53,7 +58,9 @@
             return {
                 reservations: [],
                 showModal: false,
-                currentId: ''
+                currentId: '',
+                token: '',
+                showToken: false
            }
         },
         computed: {
@@ -62,13 +69,14 @@
             }
         },
 
-        created() {
+        mounted() {
             console.log(this.$auth.getAuthenticatedUser().id)
             this.$http.get('api/reservation/' + this.$auth.getAuthenticatedUser().id)
                 .then(res => {
                     this.reservations = res.body
                     console.log(res)
                 })
+            this.token = localStorage.getItem('token')
         },
 
         methods: {
@@ -97,18 +105,21 @@
                         })
                 }.bind(this)
                 );
+
+                
             },
 
             editDone(id, data) {
                 console.log(data)
-                this.reservations[id-1].name = data.name 
+                this.reservations[id].name = data.name 
                 this.showModal = false
             },
 
             setId(id) {
                 this.currentId = id
                 this.showModal = true
-            }
+            },
+            
 
         },
         components: {
@@ -119,5 +130,9 @@
 </script>
 
 <style>
+
+#token {
+    word-wrap: break-word;
+}
 
 </style>

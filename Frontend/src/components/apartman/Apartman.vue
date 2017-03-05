@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-4">
+    <div class="col-md-4" id="apartman">
         <div class="thumbnail">
             <img src="https://exp.cdn-hotels.com/hotels/6000000/5450000/5448700/5448602/5448602_52_z.jpg" alt="">
             <div class="caption">
@@ -36,5 +36,7 @@
 </script>
 
 <style>
-
+#apartman {
+    height: 450px;
+}
 </style>
