@@ -21,9 +21,9 @@
                     <td>{{ reservation.hotel_name }}</td>
                     <td>{{ reservation.name }}</td>
                     <td><button class="btn btn-danger" 
-                        @click="cancelReservation(reservation.id)">Delete</button></td>
+                        @click="cancelReservation(index,reservation.id)">Delete</button></td>
                     <td><button class="btn btn-success" 
-                        @click="setId(index)"
+                        @click="setId(index,reservation.id)"
                         >Edit</button></td>
                 </tr>
              
@@ -44,6 +44,7 @@
     <modal v-if="showModal" 
         @editDone="editDone" 
         :id="this.id"
+        :resId="resId"
         @cancelEdit="showModal = false">
     </modal>
     </div>
@@ -59,6 +60,7 @@
                 reservations: [],
                 showModal: false,
                 currentId: '',
+                reservationId: '',
                 token: '',
                 showToken: false
            }
@@ -66,6 +68,9 @@
         computed: {
             id () {
                 return this.currentId
+            },
+            resId () {
+                return this.reservationId
             }
         },
 
@@ -80,7 +85,7 @@
         },
 
         methods: {
-            cancelReservation (id) {
+            cancelReservation (index,id) {
                 swal({
                     title: "Are you sure?",
                     text: "Your will not be able to recover this reservation!",
@@ -94,7 +99,8 @@
 
                     this.$http.delete('api/cancel/' + id)
                         .then(res => {
-                            let index = this.reservations.indexOf(id)
+                            //let index = this.reservations.indexOf(id)
+                            console.log(index)
 
                             this.reservations.splice(index, 1)
 
@@ -110,13 +116,13 @@
             },
 
             editDone(id, data) {
-                console.log(data)
                 this.reservations[id].name = data.name 
                 this.showModal = false
             },
 
-            setId(id) {
+            setId(id,resId) {
                 this.currentId = id
+                this.reservationId = resId
                 this.showModal = true
             },
             

@@ -54,7 +54,7 @@
                 
             }
         },
-        props: ['id'],
+        props: ['id','resId'],
 
         methods: {
           editReservation () {
@@ -64,11 +64,11 @@
                   days: this.days
                 }
         
-                this.$http.put('api/reservation/details/' + this.id, data)
+                this.$http.put('api/reservation/details/' + this.resId, data)
                   .then(res => {
+                    console.log(res);
                     this.$emit('editDone', this.id, data)
 
-                    console.log(res);
                   }, res => {
                     swal("Cancelled", res.body.error , "error");
                     this.$emit('cancelEdit')
@@ -82,7 +82,7 @@
           }
         },
         created() {
-            this.$http.get('api/reservation/details/' + this.id)
+            this.$http.get('api/reservation/details/' + this.resId)
               .then(res => {
                 console.log(res.body);
                 this.date = res.body.date

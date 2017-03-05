@@ -14,24 +14,11 @@ export default {
     },
     data () {
       return {
-        isAuth: null
+        isAuth: false
       }
-    },
-    created () {
-      this.setAuthenticatedUser()
-
     },
     beforeUpdate () {
       this.isAuth = this.$auth.isAuthenticated()
-    },
-    methods: {
-      setAuthenticatedUser () {
-        this.$http.get('api/user')
-          .then(res => {
-            this.$auth.setAuthenticatedUser(res.body)
-            // console.log(this.$auth.getAuthenticatedUser())
-          })
-      }
     }
 }
 </script>
