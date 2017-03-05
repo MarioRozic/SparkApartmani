@@ -3,42 +3,42 @@
         <div class="jumbotron">
             <!--<img src="https://texasstation.sclv.com/~/media/Images/Page-Background-Images/Texas/TS_Hotel_King_lowrez.jpg?h=630&la=en&w=1080" alt="">-->
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
-  <!-- Indicators -->
-  <ol class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
-    <li data-target="#myCarousel" data-slide-to="3"></li>
-  </ol>
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                    <li data-target="#myCarousel" data-slide-to="3"></li>
+                </ol>
 
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner" role="listbox">
-    <div class="item active">
-      <img src="https://miamitouristguide.com/wp-content/uploads/meatmarket-1080x630.jpg" alt="Flower">
-    </div>
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                    <img src="https://miamitouristguide.com/wp-content/uploads/meatmarket-1080x630.jpg" alt="Flower">
+                    </div>
 
-    <div class="item">
-      <img src="https://texasstation.sclv.com/~/media/Images/Page-Background-Images/Texas/TS_Hotel_King_lowrez.jpg?h=630&la=en&w=1080" alt="Flower">
-    </div>
-    <div class="item">
-      <img src="https://miamitouristguide.com/wp-content/uploads/meatmarket-1080x630.jpg" alt="Flower">
-    </div>
+                    <div class="item">
+                    <img src="https://texasstation.sclv.com/~/media/Images/Page-Background-Images/Texas/TS_Hotel_King_lowrez.jpg?h=630&la=en&w=1080" alt="Flower">
+                    </div>
+                    <div class="item">
+                    <img src="https://miamitouristguide.com/wp-content/uploads/meatmarket-1080x630.jpg" alt="Flower">
+                    </div>
 
-    <div class="item">
-      <img src="https://texasstation.sclv.com/~/media/Images/Page-Background-Images/Texas/TS_Hotel_King_lowrez.jpg?h=630&la=en&w=1080" alt="Flower">
-    </div>
-  </div>
+                    <div class="item">
+                    <img src="https://texasstation.sclv.com/~/media/Images/Page-Background-Images/Texas/TS_Hotel_King_lowrez.jpg?h=630&la=en&w=1080" alt="Flower">
+                    </div>
+                </div>
 
-  <!-- Left and right controls -->
-  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
             
             
             
@@ -46,11 +46,10 @@
             <p>City: <strong>{{ apartman.city }} </strong><br>Address: {{ apartman.address }}</p>
 
             <div class="panel panel-default">
-  <div class="panel-body">
-    {{ apartman.description }}
-  </div>
-</div>
-<div class="alert alert-danger" role="alert" v-if="error">{{ error }}</div>
+                <div class="panel-body">
+                    {{ apartman.description }}
+                </div>
+            </div>
             <div class='input-group name' id='name'>
                 <input type='text' class="form-control" v-model="name"
                     placeholder="Name"/>
@@ -83,6 +82,8 @@
 </template>
 
 <script>
+    import swal from 'sweetalert'
+
     export default {
         data () {
             return {
@@ -90,7 +91,6 @@
                 date: '',
                 name: '',
                 days: 1,
-                error: ''
             }
         },
         created () {
@@ -122,7 +122,8 @@
                         this.$router.push('/')
                     }, res => {
                         console.log(res.body.error);
-                        this.error = res.body.error
+                        swal("Cancelled", res.body.error , "error");
+
                     })
             }
         },

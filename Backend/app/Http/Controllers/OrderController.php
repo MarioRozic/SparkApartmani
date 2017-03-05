@@ -16,7 +16,16 @@ class OrderController extends Controller
 
         if(Order::where('user_id', $request['user_id'])->exists() &&
             Order::where('apartman_id', $request['apartman_id'])->exists() ){
-            return response()->json(['error' => 'Reservation exists'], 404);
+            $today = new \DateTime();
+            $today->add(new \DateInterval('P2D'));
+
+            $reservationDate = new \DateTime($request['date']);
+
+            if($reservationDate <= $today) {
+
+                return response()->json(['error' => 'Reservation exists or date is invalid!'],404);
+
+            }
         }
 
 
