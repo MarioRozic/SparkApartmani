@@ -3,7 +3,7 @@
 Basic project with [Laravel](https://laravel.com/) and [Vue.js](https://vuejs.org/), its about reserving hotel rooms.
 
 
-To start this project you will need 2 terminals and database up and running, for this project i have used
+To start this project you will need 2 terminals and database up and running, for this project I have used
 [MySql](https://www.mysql.com/) database on [XAMPP](https://www.apachefriends.org/index.html) server.
 
 ## First clone
